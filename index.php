@@ -28,7 +28,7 @@ function GetAllHeros(){
     for($i = 0; $i < count($response['result']['data']['heroes']); $i++){
         $response['result']['data']['heroes'][$i]['base64'] = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/".substr($response['result']['data']['heroes'][$i]['name'], 14).".png";
     }
-    var_dump($response['result']['data']['heroes']);
+    echo $response['result']['data']['heroes'];
 }
 
 function GetHero($id){
@@ -39,7 +39,7 @@ function GetHero($id){
     for($i = 0; $i < count($hero['abilities']); ++$i){
         $hero['abilities'][$i]['base64'] = base64_encode(file_get_contents('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/'.$hero['abilities'][$i]['name'].'.png'));
     }
-    var_dump($hero);
+    echo $hero;
 }
 
 function object_to_array($obj) {
