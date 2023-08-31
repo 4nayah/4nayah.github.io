@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/style.css">
-  </head>
-  <body>
-    <h1 id="header">a</h1>
-
-    <script>
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const url = urlParams.get('url');
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url, false);
-        xhr.send();
-
-        if (xhr.status === 200) {
-        const contenu = xhr.responseText;
-        document.body.innerHTML = contenu;
-        } else {
-        console.error('La récupération de la page a échoué.');
-        }
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1 id="header">a</h1>
+  
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const url = urlParams.get('url');
+    console.log(url);
+    fetch(url, {
+    mode: 'no-cors'
+})
+    .then(response => {
+      // Vérifier si la réponse a été reçue avec succès (code de statut HTTP 200)
+      if (!response.ok) {
+        throw new Error('Erreur HTTP : ' + response.status);
+      }
+      
+      // Extraire les données JSON de la réponse
+      return response.json();
+    })
+    .then(data => {
+      // Traiter les données récupérées (dans cet exemple, elles sont en JSON)
+      console.log('Données récupérées : ', data);
+    })
+    .catch(error => {
+      // Gérer les erreurs
+      console.error('Erreur lors de la requête : ', error.message);
+    });
+  </script>
+</body>
 </html>
